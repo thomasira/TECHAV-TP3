@@ -1,13 +1,23 @@
 <template>
-  <div class="max-w-screen-xl mx-auto bg-gray-600 text-white p-3">
-      <HomeView/>
+  <div class="bg-neutral-200 min-h-screen flex flex-col font-">
+      <MainNav><MainLogo/></MainNav>
+      <div class="text-dark text-text font-archivo flex flex-1 flex-col gap-5">
+        <RouterView
+        :inventory="inventory"
+        :addInv="addInventory"
+        :updateInv="updateInventory"
+        :removeInv="removeInventory"
+      />
+      </div>
+      <MainFooter/>
   </div>
 </template>
 
 <script>
-import HomeView from '@/views/HomeView.vue'
 import ProductDataService from '@/services/ProductDataService'
-
+import MainNav from '@/components/MainNav.vue'
+import MainFooter from '@/components/MainFooter.vue'
+import MainLogo from './components/MainLogo.vue'
 export default {
 
   data () {
@@ -25,6 +35,6 @@ export default {
         console.error('Error fetching products:', error)
       })
   },
-  components: { HomeView }
+  components: { MainNav, MainFooter, MainLogo }
 }
 </script>
