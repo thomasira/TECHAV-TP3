@@ -4,6 +4,7 @@
       <div class="text-dark text-text font-archivo flex flex-1 flex-col gap-5">
         <RouterView
         :inventory="inventory"
+        :types="types"
         :addInv="addInventory"
         :updateInv="updateInventory"
         :removeInv="removeInventory"
@@ -15,6 +16,7 @@
 
 <script>
 import ProductDataService from '@/services/ProductDataService'
+import TypeDataService from './services/TypeDataService'
 import MainNav from '@/components/MainNav.vue'
 import MainFooter from '@/components/MainFooter.vue'
 import MainLogo from './components/MainLogo.vue'
@@ -22,7 +24,8 @@ export default {
 
   data () {
     return {
-      inventory: {}
+      inventory: {},
+      types: {}
     }
   },
   mounted () {
@@ -34,6 +37,19 @@ export default {
       .catch(error => {
         console.error('Error fetching products:', error)
       })
+    TypeDataService.getAll()
+      .then(response => {
+        this.types = response.data
+        console.log(response.data)
+      })
+      .catch(error => {
+        console.error('Error fetching products:', error)
+      })
+  },
+  methods: {
+    addInventory (product) {
+      this.inventory.push(product)
+    }
   },
   components: { MainNav, MainFooter, MainLogo }
 }

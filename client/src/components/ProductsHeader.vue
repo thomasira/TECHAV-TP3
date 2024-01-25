@@ -5,21 +5,38 @@
         <p class='text-xs'>You can add, update and delete your products in this section.
         <br/> Make sure to verify your information before submitting changes.</p>
     </div>
-    <MainButton :toggle="toggle" :color="btnColor" :text="btnText"/>
-</header>
+    <MainButton :toggle="toggleForm" :color="btnColor" :text="btnText"/>
+  </header>
+  <AddProduct v-if="showForm" :types="types" :toggle="toggleForm" :addInv="addInv"/>
 </template>
 
 <script>
 import MainButton from './MainButton.vue'
+import AddProduct from './AddProduct.vue'
 export default {
+  props: ['types', 'addInv'],
   data () {
     return {
       btnText: 'add product',
-      btnColor: 'btn-gr-blue'
+      btnColor: 'btn-gr-blue',
+      showForm: false
     }
   },
   components: {
-    MainButton
+    MainButton,
+    AddProduct
+  },
+  methods: {
+    toggleForm () {
+      this.showForm = !this.showForm
+      if (this.showForm) {
+        this.btnText = 'close'
+        this.btnColor = 'btn-gr-red'
+      } else {
+        this.btnText = 'add product'
+        this.btnColor = 'btn-gr-blue'
+      }
+    }
   }
 }
 </script>

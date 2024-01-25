@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended:true }))
 
 //route
 require('./app/routes/product.route')(app)
+require('./app/routes/type.route')(app)
 const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {
  console.log(`Server is running on port ${PORT}.`)

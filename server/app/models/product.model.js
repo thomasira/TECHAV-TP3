@@ -5,9 +5,6 @@ module.exports = (connex, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false
         },
-        photo: {
-            type: Sequelize.STRING
-        },
         price: {
             type: Sequelize.REAL,
             allowNull: false

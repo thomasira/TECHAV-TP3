@@ -1,7 +1,7 @@
 <template>
 <div class='flex flex-col px-5 items-center max-w-[1200px] self-center'>
   <div class='py-10 flex flex-col items-center gap-5 w-full'>
-    <ProductsHeader/>
+    <ProductsHeader :types="types" :addInv="addInv"/>
       <!-- <Header toggleForm={ () => setShowAdd(!showAdd) } showAdd={ showAdd }/>
       { showAdd && <AddProduct onAdd={ addProduct } toggleForm={ () => setShowAdd(!showAdd) }/> } -->
     <span class='w-full h-[1px] block bg-main-600 shadow-lg shadow-dark'></span>
@@ -37,7 +37,7 @@
 <script>
 import ProductsHeader from '@/components/ProductsHeader.vue'
 export default {
-  props: ['inventory'],
+  props: ['inventory', 'types', 'addInv'],
   components: {
     ProductsHeader
   }
