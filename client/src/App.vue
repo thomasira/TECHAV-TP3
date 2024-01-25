@@ -7,7 +7,7 @@
         :types="types"
         :addInv="addInventory"
         :updateInv="updateInventory"
-        :removeInv="removeInventory"
+        :deleteProd="deleteProduct"
       />
       </div>
       <MainFooter/>
@@ -24,7 +24,7 @@ export default {
 
   data () {
     return {
-      inventory: {},
+      inventory: [],
       types: {}
     }
   },
@@ -49,6 +49,9 @@ export default {
   methods: {
     addInventory (product) {
       this.inventory.push(product)
+    },
+    deleteProduct (id) {
+      console.log(id)
     }
   },
   components: { MainNav, MainFooter, MainLogo }

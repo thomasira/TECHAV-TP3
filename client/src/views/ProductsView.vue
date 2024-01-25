@@ -6,7 +6,7 @@
       { showAdd && <AddProduct onAdd={ addProduct } toggleForm={ () => setShowAdd(!showAdd) }/> } -->
     <span class='w-full h-[1px] block bg-main-600 shadow-lg shadow-dark'></span>
   </div>
-  <ul v-if="Object.keys(inventory).length != 0" class='flex flex-wrap gap-5 justify-center py-4'>
+  <ul v-if="inventory.length != 0" class='flex flex-wrap gap-5 justify-center py-4'>
     <li v-for="(product, i) in inventory" :key="i" class='product-card'>
       <div class='flex-1'>
           <div class='flex-1 font-bold'>
@@ -23,9 +23,10 @@
       </div>
       <div>
           <button
-              class='flex items-center btn btn-gr-red btn-sm gap-2 saturate-[.8]'><FaTimes class='text-light'/>delete
+              class='flex items-center btn btn-gr-red btn-sm gap-2 saturate-[.8]' @click="deleteProd(product.id)"><FaTimes class='text-light'/>delete
           </button>
-          <button><FaRegPenToSquare class='text-light'/>modify
+          <button
+              class='flex items-center btn btn-gr-blue btn-sm gap-2 saturate-[.8]'><FaRegPenToSquare class='text-light'/>modify
           </button>
       </div>
     </li>
@@ -37,7 +38,7 @@
 <script>
 import ProductsHeader from '@/components/ProductsHeader.vue'
 export default {
-  props: ['inventory', 'types', 'addInv'],
+  props: ['inventory', 'types', 'addInv', 'deleteProd'],
   components: {
     ProductsHeader
   }
