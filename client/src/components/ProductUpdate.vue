@@ -55,7 +55,7 @@
 <script>
 import ProductDataService from '@/services/ProductDataService'
 export default {
-  props: ['product', 'types', 'closeUpdate', 'updateInv', 'productIndex', 'findType', 'validateData'],
+  props: ['product', 'types', 'closeUpdate', 'updateInv', 'productIndex', 'findType', 'validateData', 'showDialog'],
   data () {
     return {
       updateProduct: { ...this.product }
@@ -63,19 +63,16 @@ export default {
   },
   methods: {
     onUpdate () {
-      if (this.validateData(this.updateProduct)) {
-        this.updateProduct.type = { id: this.updateProduct.typeId, type: this.findType(this.updateProduct.typeId) }
-        ProductDataService.update(this.product.id, this.updateProduct)
-          .then(res => {
-            this.updateInv(this.productIndex, this.updateProduct)
-            this.closeUpdate()
-          })
-          .catch(err => {
-            this.message = err.response.data.message
-          })
-      } else {
-        this.message = 'nope'
-      }
+      this.updateProduct.type = { id: this.updateProduct.typeId, type: this.findType(this.updateProduct.typeId) }
+      ProductDataService.update(this.product.id, this.updateProduct)
+        .then(res => {
+          this.updateInv(this.productIndex, this.updateProduct)
+          this.closeUpdate()
+          this.showDialog('product updated')
+        })
+        .catch(err => {
+          this.showDialog(err.response.data.message)
+        })
     }
   }
 }

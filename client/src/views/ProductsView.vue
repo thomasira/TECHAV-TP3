@@ -1,7 +1,7 @@
 <template>
 <div class='flex flex-col px-5 items-center max-w-[1400px] self-center'>
   <div class='py-10 flex flex-col items-center gap-5 w-full'>
-    <ProductsHeader :types="types" :addInv="addInv" :findType="findType" :validateData="validateData"/>
+    <ProductsHeader :types="types" :addInv="addInv" :findType="findType" :validateData="validateData" :showDialog="showDialog"/>
     <span class='w-full h-[1px] block bg-main-600 shadow-lg shadow-dark'></span>
   </div>
   <ul v-if="inventory.length != 0" class='flex flex-col gap-5 py-4'>
@@ -15,6 +15,7 @@
       :findType="findType"
       :updateInv="updateInv"
       :validateData="validateData"
+      :showDialog="showDialog"
     />
   </ul>
   <h2 v-else>No products available</h2>
@@ -30,7 +31,7 @@ export default {
       showUpdate: false
     }
   },
-  props: ['inventory', 'types', 'addInv', 'removeInv', 'updateInv'],
+  props: ['inventory', 'types', 'addInv', 'removeInv', 'updateInv', 'showDialog'],
   components: {
     ProductsHeader,
     ProductThumb
@@ -38,8 +39,6 @@ export default {
   methods: {
     findType (id) {
       return this.types.find(t => t.id === id).type
-    },
-    validateData (data) {
     }
   }
 }

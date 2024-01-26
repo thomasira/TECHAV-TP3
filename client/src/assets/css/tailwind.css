@@ -26,6 +26,9 @@
   .btn-gr-yellow{
     @apply bg-gradient-to-br from-comp-200 to-comp-400
   }
+  .btn-large{
+    @apply text-l
+  }
   
   .form{
     & :is(input, select){

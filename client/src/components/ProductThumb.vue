@@ -29,6 +29,7 @@
   :productIndex="productIndex"
   :findType="findType"
   :updateInv="updateInv"
+  :showDialog="showDialog"
 />
 </template>
 
@@ -41,7 +42,7 @@ export default {
       showUpdate: false
     }
   },
-  props: ['removeInv', 'product', 'inventory', 'types', 'findType', 'updateInv', 'validateData'],
+  props: ['removeInv', 'product', 'inventory', 'types', 'findType', 'updateInv', 'showDialog'],
   computed: {
     productIndex () {
       const index = this.inventory.findIndex(p => p.id === this.product.id)

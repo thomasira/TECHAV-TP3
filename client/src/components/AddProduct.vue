@@ -53,7 +53,7 @@ import ProductDataService from '@/services/ProductDataService'
 
 export default {
 
-  props: ['addInv', 'toggle', 'types', 'findType', 'validateData'],
+  props: ['addInv', 'toggle', 'types', 'findType', 'validateData', 'showDialog'],
   data () {
     return {
       message: null,
@@ -68,22 +68,19 @@ export default {
   },
   methods: {
     saveProduct () {
-      if (this.validateData(this.product)) {
-        this.product.type = { id: this.product.typeId, type: this.findType(this.product.typeId) }
-        ProductDataService.create(this.product)
-          .then(res => {
-            this.showForm = false
-            this.product.id = res.data.id
-            this.addInv(this.product)
-            this.product = {}
-          })
-          .catch(err => {
-            this.message = err.response.data.message
-          })
-        this.toggle()
-      } else {
-        this.message = 'nope'
-      }
+      this.product.type = { id: this.product.typeId, type: this.findType(this.product.typeId) }
+      ProductDataService.create(this.product)
+        .then(res => {
+          this.showForm = false
+          this.product.id = res.data.id
+          this.addInv(this.product)
+          this.product = {}
+          this.showDialog('product created')
+        })
+        .catch(err => {
+          this.showDialog(err.response.data.message)
+        })
+      this.toggle()
     }
   }
 }

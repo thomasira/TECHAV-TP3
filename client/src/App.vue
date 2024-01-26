@@ -1,5 +1,6 @@
 <template>
   <div class="bg-neutral-200 min-h-screen flex flex-col font-">
+    <DialogMessage :message="message" :toggleDialog="toggleDialog"/>
     <MainNav>
       <MainLogo/>
     </MainNav>
@@ -7,9 +8,11 @@
       <RouterView
         :inventory="inventory"
         :types="types"
+        :message="message"
         :addInv="addInventory"
         :removeInv="removeInventory"
         :updateInv="updateInventory"
+        :showDialog="showDialog"
       />
     </div>
     <MainFooter/>
@@ -22,10 +25,11 @@ import TypeDataService from './services/TypeDataService'
 import MainNav from '@/components/MainNav.vue'
 import MainFooter from '@/components/MainFooter.vue'
 import MainLogo from './components/MainLogo.vue'
+import DialogMessage from './components/DialogMessage.vue'
 
 export default {
 
-  components: { MainNav, MainFooter, MainLogo },
+  components: { MainNav, MainFooter, MainLogo, DialogMessage },
   data () {
     return {
       inventory: [],
@@ -61,6 +65,12 @@ export default {
       this.inventory[index].description = data.description
       this.inventory[index].price = data.price
       this.inventory[index].type = data.type
+    },
+    toggleDialog () {
+      this.message = false
+    },
+    showDialog (message) {
+      this.message = message
     }
   }
 }
