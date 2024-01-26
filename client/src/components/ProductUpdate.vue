@@ -70,7 +70,6 @@ export default {
   methods: {
     onUpdate () {
       this.error = {}
-      console.log(this.updateProduct.price)
       if (!this.updateProduct.name) this.error.name = 'please input a product name'
       if (!this.updateProduct.price) this.error.price = 'please input a product price'
       if (!this.updateProduct.typeId) this.error.category = 'please select a category'

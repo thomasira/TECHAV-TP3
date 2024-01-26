@@ -1,6 +1,8 @@
 <template>
-  <div class="bg-neutral-200 min-h-screen flex flex-col font-">
-    <DialogMessage :message="message" :toggleDialog="toggleDialog"/>
+  <div class="bg-neutral-200 min-h-screen flex flex-col">
+    <Transition name="expand">
+      <DialogMessage v-if="message" :message="message" :toggleDialog="toggleDialog"/>
+    </Transition>
     <MainNav>
       <MainLogo/>
     </MainNav>
@@ -75,3 +77,14 @@ export default {
   }
 }
 </script>
+<style>
+.expand-enter-active, .expand-leave-active{
+  transition: top 0.3s ease-out;
+}
+.expand-enter-from, .expand-leave-to{
+  top: -100px;
+}
+.expand-enter-to, .expand-leave-from{
+  top: 0px;
+}
+</style>

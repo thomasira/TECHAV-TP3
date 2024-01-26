@@ -9,6 +9,7 @@
                   placeholder='Product name'
                   v-model="product.name"
                 />
+            <span class="text-red-400 font-semibold">{{ error.name }}</span>
             </label>
           </div>
           <div class='form-control'>
@@ -17,6 +18,7 @@
                   v-model="product.description"
                 >
                 </textarea>
+                <span class="text-red-400 font-semibold">{{ error.description }}</span>
               </label>
           </div>
         </div>
@@ -31,7 +33,8 @@
                         min='0'
                         v-model.number="product.price"
                       />
-                  </div>
+                    </div>
+                    <span class="text-red-400 font-semibold">{{ error.price }}</span>
               </label>
           </div>
           <div class='form-control'>
@@ -40,6 +43,7 @@
                     <option value="0">please select a category</option>
                     <option v-for="(type, i) in types" :key="i" :value="type.id">{{ type.type }}</option>
                   </select>
+                  <span class="text-red-400 font-semibold">{{ error.category }}</span>
               </label>
           </div>
         </div>
@@ -63,24 +67,34 @@ export default {
         price: '00.00',
         description: '',
         typeId: 0
-      }
+      },
+      error: {}
     }
   },
   methods: {
     saveProduct () {
-      this.product.type = { id: this.product.typeId, type: this.findType(this.product.typeId) }
-      ProductDataService.create(this.product)
-        .then(res => {
-          this.showForm = false
-          this.product.id = res.data.id
-          this.addInv(this.product)
-          this.product = {}
-          this.showDialog('product created')
-        })
-        .catch(err => {
-          this.showDialog(err.response.data.message)
-        })
-      this.toggle()
+      this.error = {}
+      if (!this.product.name) this.error.name = 'please input a product name'
+      if (!this.product.price) this.error.price = 'please input a product price'
+      if (!this.product.typeId) this.error.category = 'please select a category'
+
+      if (Object.keys(this.error).length === 0) {
+        this.product.type = { id: this.product.typeId, type: this.findType(this.product.typeId) }
+        ProductDataService.create(this.product)
+          .then(res => {
+            this.showForm = false
+            this.product.id = res.data.id
+            this.addInv(this.product)
+            this.product = {}
+            this.showDialog('product created')
+          })
+          .catch(err => {
+            this.showDialog(err.response.data.message)
+          })
+        this.toggle()
+      } else {
+        this.error.form = 'please make sure all mandatory information is filled'
+      }
     }
   }
 }
