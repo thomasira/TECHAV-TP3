@@ -1,6 +1,7 @@
 <template>
 <form class='form form-full form-gray'>
   <h3 class='text-s text-center'>Modify <strong class='text-m text-blue-900'>{{ product.name }}</strong></h3>
+  <span class="text-s text-center text-red-700">{{ error.form }}</span>
   <div>
     <div class='flex-1 min-w-[200px]'>
       <div class='form-control'>
@@ -8,6 +9,7 @@
             <input
             v-model="updateProduct.name"
             />
+            <span class="text-red-700 font-semibold">{{ error.name }}</span>
         </label>
       </div>
       <div class='form-control'>
@@ -16,6 +18,7 @@
             v-model="updateProduct.description"
           >
           </textarea>
+          <span class="text-red-700 font-semibold">{{ error.description }}</span>
         </label>
       </div>
     </div>
@@ -31,16 +34,18 @@
                   v-model="updateProduct.price"
                   />
               </div>
+              <span class="text-red-700 font-semibold">{{ error.price }}</span>
           </label>
       </div>
       <div class='form-control'>
         <label><span>Category</span>
           <select name='category' v-model="updateProduct.typeId">
-          <option>please select a category</option>
+          <option :value=0>please select a category</option>
           <option v-for="(type, i) in types" :key="i" :value="type.id">
             {{ type.type }}
           </option>
           </select>
+          <span class="text-red-700 font-semibold">{{ error.category }}</span>
         </label>
       </div>
     </div>
@@ -58,21 +63,32 @@ export default {
   props: ['product', 'types', 'closeUpdate', 'updateInv', 'productIndex', 'findType', 'validateData', 'showDialog'],
   data () {
     return {
-      updateProduct: { ...this.product }
+      updateProduct: { ...this.product },
+      error: {}
     }
   },
   methods: {
     onUpdate () {
-      this.updateProduct.type = { id: this.updateProduct.typeId, type: this.findType(this.updateProduct.typeId) }
-      ProductDataService.update(this.product.id, this.updateProduct)
-        .then(res => {
-          this.updateInv(this.productIndex, this.updateProduct)
-          this.closeUpdate()
-          this.showDialog('product updated')
-        })
-        .catch(err => {
-          this.showDialog(err.response.data.message)
-        })
+      this.error = {}
+      console.log(this.updateProduct.price)
+      if (!this.updateProduct.name) this.error.name = 'please input a product name'
+      if (!this.updateProduct.price) this.error.price = 'please input a product price'
+      if (!this.updateProduct.typeId) this.error.category = 'please select a category'
+
+      if (Object.keys(this.error).length === 0) {
+        this.updateProduct.type = { id: this.updateProduct.typeId, type: this.findType(this.updateProduct.typeId) }
+        ProductDataService.update(this.product.id, this.updateProduct)
+          .then(res => {
+            this.updateInv(this.productIndex, this.updateProduct)
+            this.closeUpdate()
+            this.showDialog('product updated')
+          })
+          .catch(err => {
+            this.showDialog(err.response.data.message)
+          })
+      } else {
+        this.error.form = 'please make sure all mandatory information is filled'
+      }
     }
   }
 }

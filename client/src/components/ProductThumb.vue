@@ -55,9 +55,10 @@ export default {
         .then(res => {
           this.removeInv(this.productIndex)
           this.$router.push({ name: 'products' })
+          this.showDialog('product deleted')
         })
         .catch(err => {
-          this.message = err.response.data.message
+          this.showDialog(err.response.data.message)
         })
     },
     toggleUpdate () {

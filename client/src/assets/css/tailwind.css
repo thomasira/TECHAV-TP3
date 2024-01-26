@@ -27,7 +27,7 @@
     @apply bg-gradient-to-br from-comp-200 to-comp-400
   }
   .btn-large{
-    @apply text-l
+    @apply text-m leading-none px-2
   }
   
   .form{
