@@ -7,14 +7,14 @@
     </div>
     <MainButton :toggle="toggleForm" :color="btnColor" :text="btnText"/>
   </header>
-  <AddProduct v-if="showForm" :types="types" :toggle="toggleForm" :addInv="addInv"/>
+  <AddProduct v-if="showForm" :types="types" :toggle="toggleForm" :addInv="addInv" :findType="findType"/>
 </template>
 
 <script>
 import MainButton from './MainButton.vue'
 import AddProduct from './AddProduct.vue'
 export default {
-  props: ['types', 'addInv'],
+  props: ['types', 'addInv', 'findType'],
   data () {
     return {
       btnText: 'add product',

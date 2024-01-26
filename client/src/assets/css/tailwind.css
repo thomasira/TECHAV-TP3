@@ -37,13 +37,16 @@
       }
       @apply block text-sm font-medium text-text flex flex-col gap-2
     }
+    & textarea {
+      @apply min-h-[200px] resize-y text-dark p-1
+    }
     &>div{
       &>div{
         @apply flex flex-col gap-3
       }
       @apply flex flex-wrap gap-6
     }
-    @apply p-3 gap-7 flex flex-col gap-3 shadow-lg
+    @apply p-3 gap-7 flex flex-col gap-3 shadow-lg 
   }
   
   .form-blue{
@@ -58,19 +61,21 @@
     }
     @apply bg-gradient-to-br from-neutral-200 to-neutral-400
   }
-  
+  .form-full{
+    @apply flex flex-[1_1_100%]
+  }
   .product-card{
     &>div{
       &>div{
         &>div{
           @apply flex text-m 
         }
-        @apply flex justify-between gap-2
+        @apply flex justify-between gap-9
       }
       @apply flex flex-col
     }
     &>div:last-of-type{
         @apply gap-3
       }
-    @apply flex-[1_1_500px] max-w-[800px] h-max p-2 flex flex-wrap gap-3 justify-between bg-gradient-to-br from-neutral-200 to-neutral-400 shadow-lg
+    @apply p-2 flex max-w-[1000px] flex-wrap gap-3 justify-between bg-gradient-to-br from-neutral-200 to-neutral-400 shadow-lg
   }

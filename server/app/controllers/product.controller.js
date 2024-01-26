@@ -5,7 +5,7 @@ const Type = db.types
 
 exports.findAll = (req, res) => {
     Product.findAll({
-        include: Type,
+        include: Type
     })
     .then(data => res.send(data))
     .catch(err => { 

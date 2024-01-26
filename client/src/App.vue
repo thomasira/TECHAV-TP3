@@ -1,16 +1,18 @@
 <template>
   <div class="bg-neutral-200 min-h-screen flex flex-col font-">
-      <MainNav><MainLogo/></MainNav>
-      <div class="text-dark text-text font-archivo flex flex-1 flex-col gap-5">
-        <RouterView
+    <MainNav>
+      <MainLogo/>
+    </MainNav>
+    <div class="text-dark text-text font-archivo flex flex-1 flex-col gap-5">
+      <RouterView
         :inventory="inventory"
         :types="types"
         :addInv="addInventory"
+        :removeInv="removeInventory"
         :updateInv="updateInventory"
-        :deleteProd="deleteProduct"
       />
-      </div>
-      <MainFooter/>
+    </div>
+    <MainFooter/>
   </div>
 </template>
 
@@ -20,19 +22,21 @@ import TypeDataService from './services/TypeDataService'
 import MainNav from '@/components/MainNav.vue'
 import MainFooter from '@/components/MainFooter.vue'
 import MainLogo from './components/MainLogo.vue'
+
 export default {
 
+  components: { MainNav, MainFooter, MainLogo },
   data () {
     return {
       inventory: [],
-      types: {}
+      types: [],
+      message: false
     }
   },
   mounted () {
     ProductDataService.getAll()
       .then(response => {
         this.inventory = response.data
-        console.log(response.data)
       })
       .catch(error => {
         console.error('Error fetching products:', error)
@@ -40,7 +44,6 @@ export default {
     TypeDataService.getAll()
       .then(response => {
         this.types = response.data
-        console.log(response.data)
       })
       .catch(error => {
         console.error('Error fetching products:', error)
@@ -50,10 +53,15 @@ export default {
     addInventory (product) {
       this.inventory.push(product)
     },
-    deleteProduct (id) {
-      console.log(id)
+    removeInventory (index) {
+      this.inventory.splice(index, 1)
+    },
+    updateInventory (index, data) {
+      this.inventory[index].name = data.name
+      this.inventory[index].description = data.description
+      this.inventory[index].price = data.price
+      this.inventory[index].type = data.type
     }
-  },
-  components: { MainNav, MainFooter, MainLogo }
+  }
 }
 </script>
