@@ -37,12 +37,21 @@
 import ProductDataService from '@/services/ProductDataService'
 import ProductUpdate from '@/components/ProductUpdate.vue'
 export default {
+  props: [
+    'findType',
+    'inventory',
+    'product',
+    'removeInv',
+    'showDialog',
+    'types',
+    'updateInv'
+  ],
   data () {
     return {
       showUpdate: false
     }
   },
-  props: ['removeInv', 'product', 'inventory', 'types', 'findType', 'updateInv', 'showDialog'],
+  components: { ProductUpdate },
   computed: {
     productIndex () {
       const index = this.inventory.findIndex(p => p.id === this.product.id)
@@ -51,10 +60,10 @@ export default {
   },
   methods: {
     deleteProduct () {
+      // send delete request to product data service then trigger DOM update
       ProductDataService.delete(this.product.id)
         .then(res => {
           this.removeInv(this.productIndex)
-          this.$router.push({ name: 'products' })
           this.showDialog('product deleted')
         })
         .catch(err => {
@@ -64,7 +73,6 @@ export default {
     toggleUpdate () {
       this.showUpdate = !this.showUpdate
     }
-  },
-  components: { ProductUpdate }
+  }
 }
 </script>

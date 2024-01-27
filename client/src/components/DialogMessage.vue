@@ -7,6 +7,9 @@
 
 <script>
 export default {
-  props: ['message', 'toggleDialog']
+  props: [
+    'message',
+    'toggleDialog'
+  ]
 }
 </script>

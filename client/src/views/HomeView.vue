@@ -13,6 +13,12 @@
 <script>
 import MainLogoInline from '@/components/MainLogoInline.vue'
 export default {
+  props: [
+    'pageTitle'
+  ],
+  data () {
+    this.pageTitle('home')
+  },
   components: { MainLogoInline }
 }
 </script>

@@ -60,22 +60,40 @@
 <script>
 import ProductDataService from '@/services/ProductDataService'
 export default {
-  props: ['product', 'types', 'closeUpdate', 'updateInv', 'productIndex', 'findType', 'validateData', 'showDialog'],
+  props: [
+    'closeUpdate',
+    'findType',
+    'product',
+    'productIndex',
+    'showDialog',
+    'types',
+    'updateInv'
+  ],
   data () {
     return {
+      // copy product prop to fill form data
       updateProduct: { ...this.product },
+      // error object for error handling, see below
       error: {}
     }
   },
   methods: {
     onUpdate () {
+      // empty error object
       this.error = {}
+
+      // fill it up if any error present
       if (!this.updateProduct.name) this.error.name = 'please input a product name'
       if (!this.updateProduct.price) this.error.price = 'please input a product price'
       if (!this.updateProduct.typeId) this.error.category = 'please select a category'
 
       if (Object.keys(this.error).length === 0) {
-        this.updateProduct.type = { id: this.updateProduct.typeId, type: this.findType(this.updateProduct.typeId) }
+        // manually inserting product.type to pass to DOM handler
+        this.updateProduct.type = {
+          id: this.updateProduct.typeId,
+          type: this.findType(this.updateProduct.typeId)
+        }
+        // send update request to product data service then trigger DOM update
         ProductDataService.update(this.product.id, this.updateProduct)
           .then(res => {
             this.updateInv(this.productIndex, this.updateProduct)

@@ -1,4 +1,5 @@
 <template>
+  <PageTitle :title="pageTitle + ' | vue-tp2'"/>
   <div class="bg-neutral-200 min-h-screen flex flex-col">
     <Transition name="expand">
       <DialogMessage v-if="message" :message="message" :toggleDialog="toggleDialog"/>
@@ -15,6 +16,7 @@
         :removeInv="removeInventory"
         :updateInv="updateInventory"
         :showDialog="showDialog"
+        :pageTitle="setTitle"
       />
     </div>
     <MainFooter/>
@@ -28,15 +30,15 @@ import MainNav from '@/components/MainNav.vue'
 import MainFooter from '@/components/MainFooter.vue'
 import MainLogo from './components/MainLogo.vue'
 import DialogMessage from './components/DialogMessage.vue'
-
+import PageTitle from './components/PageTitle.vue'
 export default {
-
-  components: { MainNav, MainFooter, MainLogo, DialogMessage },
+  components: { MainNav, MainFooter, MainLogo, DialogMessage, PageTitle },
   data () {
     return {
       inventory: [],
       types: [],
-      message: false
+      message: false,
+      pageTitle: 'app'
     }
   },
   mounted () {
@@ -73,6 +75,9 @@ export default {
     },
     showDialog (message) {
       this.message = message
+    },
+    setTitle (title) {
+      this.pageTitle = title
     }
   }
 }

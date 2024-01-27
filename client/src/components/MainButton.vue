@@ -4,6 +4,10 @@
 
 <script>
 export default {
-  props: ['toggle', 'text', 'color']
+  props: [
+    'toggle',
+    'text',
+    'color'
+  ]
 }
 </script>
