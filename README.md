@@ -18,7 +18,11 @@ By and Buy is a simple web project. A first time experimentation with Vue builds
 https://github.com/thomasira/TECHAV-TP3/assets/134738954/929b781e-fd92-4ea2-9a8a-c16864a4ccbf
 
 
-## The docs
+## The docs  
+
+get the pdf -> [tp3.pdf](https://github.com/thomasira/TECHAV-TP3/files/14073477/tp3.pdf)  
+
+![tp3](https://github.com/thomasira/TECHAV-TP3/assets/134738954/45a8c7a0-1622-4625-b7dd-bd0fbc789a48)  
 
 
 ## The looks
