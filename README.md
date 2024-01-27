@@ -6,8 +6,6 @@ Techniques avancées | TP-3
 * [The demo](#the-demo)
 * [The docs](#the-docs)
 * [The installation](#the-installation)
-* [The techs](#the-techs)
-* [The looks](#the-looks)
  
 ## The project
 
@@ -24,8 +22,13 @@ get the pdf -> [tp3.pdf](https://github.com/thomasira/TECHAV-TP3/files/14073477/
 
 ![tp3](https://github.com/thomasira/TECHAV-TP3/assets/134738954/45a8c7a0-1622-4625-b7dd-bd0fbc789a48)  
 
+## The installation
 
-## The looks
-
-The looks should be minimalist and resemble platforms for buying.
-
+1. clone project from github
+2. create empty schema for the project in your DB
+3. in server/app/config change file **db.config.example.js** to **db.config.js** and configure your DB info
+4. start your DB service
+5. initialise packages in both *client* and *server* folders. run -> *npm i --force*
+6. in client folder run-> *npm run serve*
+7. in server folder run-> *node index.js*
+8. go to the url given on the client side server
